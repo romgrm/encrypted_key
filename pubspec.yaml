@@ -15,3 +15,5 @@ dev_dependencies:
 
 dependencies: 
   args: ^2.3.1
+  mason_logger: ^0.2.3
+  pub_updater: ^0.2.4
