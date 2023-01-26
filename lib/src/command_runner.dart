@@ -1,11 +1,12 @@
 import 'dart:io';
-import 'package:encrypted_key/src/commands/decrypt_command.dart';
-import 'package:encrypted_key/src/commands/encrypt_command.dart';
-import 'package:pub_updater/pub_updater.dart';
-import 'package:yaml/yaml.dart';
 
 import 'package:args/command_runner.dart';
 import 'package:mason_logger/mason_logger.dart';
+import 'package:pub_updater/pub_updater.dart';
+import 'package:yaml/yaml.dart';
+
+import 'package:encrypted_key/src/commands/decrypt_command.dart';
+import 'package:encrypted_key/src/commands/encrypt_command.dart';
 
 const executableName = 'encrypted_key';
 const packageName = 'encrypted_key';
@@ -36,8 +37,6 @@ class EncryptedKeyCommandRunner extends CommandRunner<int> {
 
   @override
   Future<int> run(Iterable<String> args) async {
-    if (args.isEmpty) printUsage();
-
     final topLevelResults = parse(args);
 
     if (topLevelResults['version'] == true) {
@@ -51,7 +50,11 @@ class EncryptedKeyCommandRunner extends CommandRunner<int> {
 
       return ExitCode.success.code;
     }
-    runCommand(topLevelResults);
+    try {
+      runCommand(topLevelResults);
+    } catch (e) {
+      _logger.err("$e");
+    }
     return ExitCode.usage.code;
   }
 }
