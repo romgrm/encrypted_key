@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:args/command_runner.dart';
 import 'package:mason_logger/mason_logger.dart';
-import 'package:pub_updater/pub_updater.dart';
 import 'package:yaml/yaml.dart';
 
 import 'package:encrypted_key/src/commands/decrypt_command.dart';
@@ -15,9 +14,7 @@ const description = 'A Dart CLI for encrypting sensitive data in ASCII format';
 class EncryptedKeyCommandRunner extends CommandRunner<int> {
   EncryptedKeyCommandRunner({
     Logger? logger,
-    PubUpdater? pubUpdater,
   })  : _logger = logger ?? Logger(),
-        _pubUpdater = pubUpdater ?? PubUpdater(),
         super(executableName, description) {
     argParser.addFlag(
       'version',
@@ -30,7 +27,6 @@ class EncryptedKeyCommandRunner extends CommandRunner<int> {
   }
 
   final Logger _logger;
-  final PubUpdater _pubUpdater;
 
   @override
   void printUsage() => _logger.info(usage);
