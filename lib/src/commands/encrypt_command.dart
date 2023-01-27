@@ -33,7 +33,7 @@ class EncryptCommand extends Command<int> {
         return ExitCode.usage.code;
       }
       print("the encrypted key for ${argResults?.rest} is : ");
-      Uint8List encode = ascii.encode(argResults?.rest.toString() ?? "");
+      Uint8List encode = ascii.encode(argResults?.rest.toString().replaceAll(RegExp(r"\[|\]"), "") ?? "");
 
       print(encode);
 
